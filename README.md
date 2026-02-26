@@ -1,0 +1,1 @@
+## PCB / Schematic designed in KiCad
