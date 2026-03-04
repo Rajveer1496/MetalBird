@@ -1953,6 +1953,143 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Regulator_Linear:AMS1117-3.3"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -3.81 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "AMS1117-3.3"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "http://www.advanced-monolithic.com/pdf/ds1117.pdf"
+				(at 2.54 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "1A Low Dropout regulator, positive, 3.3V fixed output, SOT-223"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "linear regulator ldo fixed positive"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT?223*TabPin2*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "AMS1117-3.3_0_1"
+				(rectangle
+					(start -5.08 -5.08)
+					(end 5.08 1.905)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "AMS1117-3.3_1_1"
+				(pin power_in line
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "VI"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name "VO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Switch:SW_Push_Open"
 			(pin_numbers
 				(hide yes)
@@ -2344,6 +2481,12 @@
 		(uuid "03b6a292-94b0-4df2-821a-da1f4cd29c07")
 	)
 	(junction
+		(at 278.13 187.96)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0d32cbd0-68da-4806-a9ac-17cbf1027d40")
+	)
+	(junction
 		(at 138.43 170.18)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2432,6 +2575,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "74b4bceb-d20c-4459-be77-37aa9f26cd75")
+	)
+	(junction
+		(at 292.1 179.07)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7b57a8c6-e658-4463-811d-b77d80c65e8b")
 	)
 	(junction
 		(at 152.4 33.02)
@@ -2665,6 +2814,16 @@
 	)
 	(wire
 		(pts
+			(xy 278.13 187.96) (xy 292.1 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "127ddf01-3dbe-4861-8996-0a7fdd89d816")
+	)
+	(wire
+		(pts
 			(xy 77.47 177.8) (xy 77.47 179.07)
 		)
 		(stroke
@@ -2875,6 +3034,16 @@
 	)
 	(wire
 		(pts
+			(xy 257.81 179.07) (xy 270.51 179.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3e1cc7ee-a214-494a-9aec-8c8bc9f8b0ab")
+	)
+	(wire
+		(pts
 			(xy 48.26 198.12) (xy 52.07 198.12)
 		)
 		(stroke
@@ -2922,6 +3091,16 @@
 			(type default)
 		)
 		(uuid "480331b1-b846-4369-a03e-d264e61244b3")
+	)
+	(wire
+		(pts
+			(xy 285.75 179.07) (xy 292.1 179.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5ad0a4c6-efd2-4135-8a4d-5f2f9af9ec38")
 	)
 	(wire
 		(pts
@@ -3162,6 +3341,16 @@
 			(type default)
 		)
 		(uuid "8f3d5663-d3d8-43a9-82aa-361c1623d15a")
+	)
+	(wire
+		(pts
+			(xy 278.13 186.69) (xy 278.13 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "91f9e633-c42a-450f-a9c7-707b099f67d6")
 	)
 	(wire
 		(pts
@@ -3495,6 +3684,16 @@
 	)
 	(wire
 		(pts
+			(xy 292.1 179.07) (xy 292.1 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cc5953fa-9cd3-4fda-a635-b76d9393fd64")
+	)
+	(wire
+		(pts
 			(xy 111.76 173.99) (xy 111.76 175.26)
 		)
 		(stroke
@@ -3542,6 +3741,16 @@
 			(type default)
 		)
 		(uuid "d6847696-bf91-4351-b2b6-b7d9a80e2c2f")
+	)
+	(wire
+		(pts
+			(xy 278.13 187.96) (xy 278.13 189.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d834a871-279e-4d25-adf5-94de17ffc709")
 	)
 	(wire
 		(pts
@@ -3615,6 +3824,16 @@
 	)
 	(wire
 		(pts
+			(xy 292.1 179.07) (xy 304.8 179.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f3004b86-5bd3-48e0-af95-e0e4109778d1")
+	)
+	(wire
+		(pts
 			(xy 116.84 59.69) (xy 124.46 59.69)
 		)
 		(stroke
@@ -3653,7 +3872,7 @@
 		)
 		(uuid "fde9eb0c-a79b-42a1-bcbe-b13845d26520")
 	)
-	(global_label "Vout"
+	(global_label "Vout (5 V)"
 		(shape input)
 		(at 170.18 182.88 0)
 		(fields_autoplaced yes)
@@ -3665,12 +3884,34 @@
 		)
 		(uuid "19b786fd-30bd-4949-b77a-3719393acd5d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 177.2775 182.88 0)
+			(at 183.2042 182.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Vin (5 V)"
+		(shape input)
+		(at 257.81 179.07 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2391141d-eb4e-4d47-80cf-b53bfb60b0c2")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 246.0557 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -3719,7 +3960,7 @@
 			)
 		)
 	)
-	(global_label "Vin"
+	(global_label "Vin (7.4 V)"
 		(shape input)
 		(at 48.26 177.8 180)
 		(fields_autoplaced yes)
@@ -3731,7 +3972,7 @@
 		)
 		(uuid "a74c58d7-d13e-4813-ac2a-971b35a6e5f0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 42.4324 177.8 0)
+			(at 34.6914 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3759,6 +4000,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "Vout (3.3 V)"
+		(shape input)
+		(at 304.8 179.07 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "eeac5bd8-005c-41ad-9fef-a6c824f2e3d8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 319.6385 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -4034,6 +4297,72 @@
 			(project ""
 				(path "/883a9ca3-f572-4a21-acce-bb921b8002d3"
 					(reference "C6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 278.13 189.23 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1712d26d-1ff4-42ca-bdbb-85f696b8c9be")
+		(property "Reference" "#PWR07"
+			(at 278.13 195.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 278.13 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 278.13 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 278.13 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 278.13 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b248600c-7d32-4914-a203-c51cbe47174e")
+		)
+		(instances
+			(project ""
+				(path "/883a9ca3-f572-4a21-acce-bb921b8002d3"
+					(reference "#PWR07")
 					(unit 1)
 				)
 			)
@@ -4450,6 +4779,77 @@
 		)
 	)
 	(symbol
+		(lib_id "Regulator_Linear:AMS1117-3.3")
+		(at 278.13 179.07 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "33a94d0b-ffe2-4f2a-9a22-39014e70dea5")
+		(property "Reference" "U2"
+			(at 278.13 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AMS1117-3.3"
+			(at 278.13 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
+			(at 278.13 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.advanced-monolithic.com/pdf/ds1117.pdf"
+			(at 280.67 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "1A Low Dropout regulator, positive, 3.3V fixed output, SOT-223"
+			(at 278.13 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "6072e874-3640-45be-944c-7431613f3531")
+		)
+		(pin "1"
+			(uuid "e690267e-0632-4b22-aacf-4b5f49827411")
+		)
+		(pin "3"
+			(uuid "bc1009f8-9af5-44b0-859f-a1856ca8969d")
+		)
+		(instances
+			(project ""
+				(path "/883a9ca3-f572-4a21-acce-bb921b8002d3"
+					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 160.02 187.96 0)
 		(unit 1)
@@ -4858,6 +5258,76 @@
 			(project ""
 				(path "/883a9ca3-f572-4a21-acce-bb921b8002d3"
 					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 292.1 184.15 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "856836a1-050c-4480-95d9-2726f084714b")
+		(property "Reference" "C10"
+			(at 295.91 182.8799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22µF"
+			(at 295.91 185.4199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 293.0652 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 292.1 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 292.1 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "071a131d-f3ec-49dd-bf55-cf14067e5dfa")
+		)
+		(pin "2"
+			(uuid "1bda5bf4-3416-4c3b-897d-b0ecaf4030df")
+		)
+		(instances
+			(project ""
+				(path "/883a9ca3-f572-4a21-acce-bb921b8002d3"
+					(reference "C10")
 					(unit 1)
 				)
 			)
