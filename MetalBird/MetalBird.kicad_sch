@@ -8377,7 +8377,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Inductor_SMD:L_Cenker_CKCS4018"
 			(at 105.41 170.18 0)
 			(effects
 				(font
@@ -13130,7 +13130,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1000microF"
+		(property "Value" "100microF"
 			(at 29.21 48.6409 0)
 			(effects
 				(font
@@ -13139,7 +13139,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 26.3652 52.07 0)
 			(effects
 				(font
