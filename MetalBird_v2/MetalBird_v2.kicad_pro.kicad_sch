@@ -5085,6 +5085,12 @@
 		(uuid "33a2de83-e42d-4609-9d58-a78e554d87d5")
 	)
 	(junction
+		(at 74.93 160.02)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3438fc0b-3dc7-4d14-aa94-53b36e311b5f")
+	)
+	(junction
 		(at 88.9 167.64)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5211,6 +5217,12 @@
 		(uuid "77cabaf7-d632-4a5a-89bd-de54e246c795")
 	)
 	(junction
+		(at 74.93 165.1)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7b1d84af-1a8f-4f98-9293-5156383db671")
+	)
+	(junction
 		(at 191.77 170.18)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5301,6 +5313,12 @@
 		(uuid "abe2d980-9a78-4ef2-a4f0-12d3a7515968")
 	)
 	(junction
+		(at 67.31 160.02)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "acd6e224-3ddf-4849-8b6a-556fbaf5f1e0")
+	)
+	(junction
 		(at 165.1 170.18)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5335,6 +5353,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "da80bfed-fb70-4753-9668-f137288f0dfa")
+	)
+	(junction
+		(at 67.31 165.1)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "de768795-8b33-4f22-b155-e2020822cdf0")
 	)
 	(junction
 		(at 88.9 33.02)
@@ -5472,6 +5496,16 @@
 	)
 	(wire
 		(pts
+			(xy 74.93 160.02) (xy 74.93 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "00d9bed4-cf15-43b5-bdde-517b28650e9f")
+	)
+	(wire
+		(pts
 			(xy 264.16 60.96) (xy 264.16 62.23)
 		)
 		(stroke
@@ -5479,6 +5513,16 @@
 			(type default)
 		)
 		(uuid "00dd04b0-5b4c-4652-ad23-720f1c95d168")
+	)
+	(wire
+		(pts
+			(xy 67.31 160.02) (xy 67.31 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "02c052de-5ba6-4afb-bf99-baf25f879fa5")
 	)
 	(wire
 		(pts
@@ -6110,6 +6154,16 @@
 			(type default)
 		)
 		(uuid "5b8dc5d6-b7e7-4bdf-8942-60b65ae74e73")
+	)
+	(wire
+		(pts
+			(xy 67.31 154.94) (xy 67.31 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5e4e23ae-ef1a-4135-9452-57837de35c0c")
 	)
 	(wire
 		(pts
@@ -7009,6 +7063,16 @@
 			(type default)
 		)
 		(uuid "c5e814a1-479d-4765-9ac1-2b5ab793651c")
+	)
+	(wire
+		(pts
+			(xy 74.93 154.94) (xy 74.93 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7babd8a-6166-4d90-8a57-b158ff2e0b41")
 	)
 	(wire
 		(pts
@@ -11116,6 +11180,86 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C")
+		(at 71.12 154.94 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6eb050d9-ff10-48a8-a2d6-61370dcd8676")
+		(property "Reference" "C11"
+			(at 71.12 147.32 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10nF"
+			(at 71.12 149.86 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 74.93 153.9748 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 71.12 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 71.12 154.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e6875f43-0ee5-4cba-841f-c5660cefa41b")
+		)
+		(pin "2"
+			(uuid "9f597682-a629-4c59-9bb3-ee60b125b233")
+		)
+		(instances
+			(project "MetalBird_v2.kicad_pro"
+				(path "/883a9ca3-f572-4a21-acce-bb921b8002d3"
+					(reference "C11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 22.86 44.45 0)
 		(unit 1)
@@ -12635,6 +12779,86 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C")
+		(at 71.12 160.02 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "afedc435-bd5b-4eb4-b18d-a672936efa65")
+		(property "Reference" "C7"
+			(at 71.12 152.4 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100nF"
+			(at 71.12 154.94 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 74.93 159.0548 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 71.12 160.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 71.12 160.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f64de7fd-bd9e-418a-98fd-99d3f92810b4")
+		)
+		(pin "2"
+			(uuid "1ff2a935-04d1-47a4-847b-83871bcac949")
+		)
+		(instances
+			(project "MetalBird_v2.kicad_pro"
+				(path "/883a9ca3-f572-4a21-acce-bb921b8002d3"
+					(reference "C7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Switch:SW_Push_Open")
 		(at 125.73 52.07 0)
 		(unit 1)
@@ -13710,7 +13934,7 @@
 				)
 			)
 		)
-		(property "Value" "330nF"
+		(property "Value" "220nF"
 			(at 71.12 160.02 90)
 			(show_name no)
 			(do_not_autoplace no)
