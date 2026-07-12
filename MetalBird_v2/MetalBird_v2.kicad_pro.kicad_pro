@@ -753,7 +753,7 @@
         "uuid": "883a9ca3-f572-4a21-acce-bb921b8002d3"
       }
     ],
-    "used_designators": "AP62200WU\\-1,C5,C7,C11,C26,J1,J11,R1,R3-5,C2A2-4",
+    "used_designators": "L2,#PWR4,#PWR8,#FLG3,AP62200WU\\-1-2,C5,C7,C11,C13,C24,C26-30,J1,J11,R1,R3-5,R7,R9-10,R18,C2A2-4",
     "variants": []
   },
   "sheets": [

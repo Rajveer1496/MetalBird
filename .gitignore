@@ -10,3 +10,6 @@ MetalBird/~_autosave-MetalBird.kicad_pcb.lck
 MetalBird/~MetalBird.kicad_pcb.lck
 MetalBird_v2/~MetalBird_v2.kicad_pro.kicad_pro.lck
 MetalBird_v2/~MetalBird_v2.kicad_pro.kicad_sch.lck
+*.bin
+*.elf
+*.o
