@@ -13,3 +13,5 @@ MetalBird_v2/~MetalBird_v2.kicad_pro.kicad_sch.lck
 *.bin
 *.elf
 *.o
+/firmware/.vscode
+/firmware/Metal-Bird/build
