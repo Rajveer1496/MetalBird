@@ -13,6 +13,7 @@ vector.o : vector.s
 
 run: $(PROGRAM_BIN)
 	st-flash write $(PROGRAM_BIN) 0x08000000
+	rm -rf $(PROGRAM_BIN) program.elf vector.o
 
 info:
 	st-info --probe
