@@ -10,6 +10,95 @@
 .section .text, "ax"
     .global Reset_Handler
         Reset_Handler:
+            @ Setting up Clock tree
+            
+            @ Wait state & Cache Enable
+                @ Flash intefrace register base address = 0x4002 3C00
+                @ FLASH_ACR (flash access control register) offset = 0x0
+                @ LATENCY (wait state) bits = 3:0
+                @ PREFETCH ENABLE bit = 8
+                @ INSTRUCTION CACHE enable bit = 9
+                @ DATA CACHE enable bit = 10
+            LDR R0, =(0x40023C00)
+            LDR R1, [R0]
+            BIC R1, R1, #(0xF) @ Clear bits 3:0
+            LDR R2, =((1<<8) | (1<<9) | (1<<10) | 0x2)  @ Enable all cache and Set Wait_state=2
+            ORR R1, R2
+            STR R1,[R0]
+
+            @ HSE oscillator enable
+                @ RCC Base address = 0x4002 3800
+                @ RCC_CR offset = 0x0
+                @ HSEON bit = 16
+                @ HSERDY flag bit = 17
+            LDR R0, =(0x40023800)
+            LDR R1, [R0]
+            LDR R2, =(1<<16) @ Enable HSE Oscillator
+            ORR R1,R2
+            STR R1,[R0]
+            HSE_WAIT: @ wait untill HSE stabalises
+                LDR R1,[R0]
+                LDR R2, =(1<<17)
+                ANDS R1, R2
+            BEQ HSE_WAIT @ Loop if result of AND is Zero (HSERDY flag is not set)
+            
+            @ Configure PLL Dividers ! NOTE: while PLL is disabled
+                @ RCC Base address = 0x4002 3800
+                @ RCC_PLLCFGR offset = 0x04
+                @ PLLSRC bit = 22
+                @ PLLM bits = 5:0
+                @ PLLN bits = 14:6
+                @ PLLP bits = 17:16
+                @ PLLQ bits = 27:24
+
+                @ for our config we want 
+                    @ PLLSRC = 1
+                    @ PLLM = 4
+                    @ PLLN = 168
+                    @ PLLP = 4 (bits 01 maps to divider 4)
+                    @ PLLQ = 7
+            LDR R0, =(0x40023800 + 0x04)
+            LDR R1, [R0]
+            LDR R2, =((0x7FFF) | (0x3 << 16) | (1 << 22) | (0xF << 24)) @ Clear all required bits
+            BIC R1, R2
+            LDR R2, =((1<<22) | (0x4) | (0xA8 << 6) | (0x1 << 16) | (0x7 << 24)) @ set all required values
+            ORR R1, R2
+            STR R1, [R0]
+
+            @ PLL Enable
+                @ RCC Base address = 0x4002 3800
+                @ RCC_CR offset = 0x0
+                @ PLLON bit = 24
+                @ PLLRDY bit = 25
+            LDR R0, =(0x40023800)
+            LDR R1, [R0]
+            ORR R1, #(1<<24)
+            STR R1, [R0]
+            PLL_WAIT:
+                LDR R1,[R0]
+                LDR R2, =(1<<25)
+                ANDS R1,R2
+            BEQ PLL_WAIT
+            
+            @ FEED PLL to SYSCLK
+                @ RCC Base address = 0x4002 3800
+                @ RCC_CFGR offset = 0x08
+                @ SW bits = 1:0 (10 = PLL selected as system clock) -> switch bits
+                @ SWS bits = 3:2 (10 = PLL, 00 = HSI, 01 = HSE used as system clock) -> status bits
+            LDR R0, =(0x40023800 + 0x08)
+            LDR R1, [R0]
+            BIC R1, R1, #(0x3) @ Clear Switch bits
+            ORR R1, R1, #(0x2)
+            STR R1, [R0]
+            
+            FEED_PLL_WAIT:
+            @ Check if Switch is correct
+            LDR R1,[R0]
+            LDR R2, =(~(0x3<<2))
+            BIC R1, R2
+            EORS R1, R1, #(0x2<<2)
+            BNE FEED_PLL_WAIT
+
             @ GPIOB CLOCK ENABLE
                 @ RCC Base address = 0x4002 3800
                 @ RCC_AHB1ENR offset = 0x30
@@ -42,7 +131,7 @@
                 STR R1, [R0]
                 BL Delay
 
-                LDR R1, =((0x1<<(13+16)) | (0x1<<(14+16)))
+                LDR R1, =((0x1<<(13+16)) | (0x1<<(14+16))) @ unset 13th and 14th bit
                 STR R1,[R0]
                 BL Delay
                 B loop
