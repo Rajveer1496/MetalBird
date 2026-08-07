@@ -99,6 +99,33 @@
             EORS R1, R1, #(0x2<<2)
             BNE FEED_PLL_WAIT
 
+            @ SysTick setup
+                @ STCSR (SysTick control and status register) address = 0xE000E010
+                    @ COUNTFLAG bit = 16 (Returns 1 if timer counted to 0 since last time this was read.)
+                    @ CLKSOURCE bit = 2 (0 = external clock, 1 = processor clock)
+                    @ TICKINT bit = 1 (Enables SysTick exception request)
+                    @ ENABLE bit = 0
+
+                @ STRVR (SysTick reload value register) address = 0xE000E014
+                    @ NOTE: RVR is 24 bit so max_val = 16777216 -> at 84 MHz biggest SysTick period we can get is ~199.72 ms
+
+                @ STCVR (SysTick current value register) address = 0xE000E018
+            LDR R0, =(0xE000E014)
+            @ LDR R1, =(0x1481F) @ set reload value to 83999 (Reload value = Cycles - 1)
+            LDR R1, =(0x00FFFFF)
+            STR R1, [R0]
+
+            @ write to CVR as init setp
+            LDR R0, =(0xE000E018)
+            LDR R1, =(0x1)
+            STR R1, [R0]
+            
+            LDR R0, =(0xE000E010)
+            LDR R1, [R0]
+            ORR R1, R1, #(0x5) @ Enable Systick and set clock source to internal
+            STR R1, [R0]
+
+
             @ GPIOB CLOCK ENABLE
                 @ RCC Base address = 0x4002 3800
                 @ RCC_AHB1ENR offset = 0x30
@@ -127,11 +154,11 @@
                 @ 16-31 bits = Set Pin low (reset)
             LDR R0, =0x40020418
             loop:
-                LDR R1, =((0x1<<13)|(0x1<<14))  @ set 13th and 14th bit
+                LDR R1, =((0x1<<13)|(0x1<<14))  @ set 13th and 14th bit (TO SET PIN HIGH)
                 STR R1, [R0]
                 BL Delay
 
-                LDR R1, =((0x1<<(13+16)) | (0x1<<(14+16))) @ unset 13th and 14th bit
+                LDR R1, =((0x1<<(13+16)) | (0x1<<(14+16))) @ set 13+16th and 14+16th bit (TO SET PIN LOW)
                 STR R1,[R0]
                 BL Delay
                 B loop
@@ -139,10 +166,19 @@
             hang:
                 B hang
             
+        @ Delay:
+        @     LDR R2, =0x000FFFFF
+        @     wait:
+        @     SUBS R2, R2, #0x1
+        @     BNE wait
+        @     BX LR
+
         Delay:
-            LDR R2, =0x000FFFFF
+            LDR R3, =(0xE000E010)
             wait:
-            SUBS R2, R2, #0x1
-            BNE wait
+            LDR R4, [R3]
+            ANDS R4, R4, #(1<<16)
+            BEQ wait
             BX LR
+
 
