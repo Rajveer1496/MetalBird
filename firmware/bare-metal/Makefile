@@ -1,4 +1,5 @@
 PROGRAM_BIN = program.bin
+BAUD_RATE = 115200
 
 all : $(PROGRAM_BIN)
 
@@ -24,3 +25,6 @@ info:
 clean:
 	rm -rf *.bin *.elf *.o
 
+debug:
+	stty -F /dev/ttyUSB0 115200 raw -echo clocal -crtscts
+	picocom --noinit /dev/ttyUSB0

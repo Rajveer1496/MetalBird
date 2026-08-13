@@ -77,7 +77,7 @@
                 @ RCC base address = 0x4002 3800
                     @ RCC_APB2ENR offset = 0x44
                         @ USART1 clock enable bit = 4
-            LDR R0, =(0x40023800)
+            LDR R0, =(0x40023800 + 0x44)
             LDR R1, [R0]
             ORR R1, R1, #(1<<4)
             STR R1, [R0]
@@ -120,7 +120,7 @@
                 LDR R1, [R0]
                 LDR R2, =(0xFFFF)
                 BIC R1, R2
-                LDR R2 , =((0x2E << 4) | 0x9)
+                LDR R2 , =((0x2D << 4) | 0x9)
                 @ ORR R1, R1, #((0x2E << 4) | 0x9)
                 ORR R1, R2
                 STR R1, [R0]
@@ -176,6 +176,22 @@
                 RDR. In other words, data has been received and can be read (as well as its
                 associated error flags)
             */
+
+            @ TEMPPPPP SEND DATA VIA USART
+                @ USART1 base address = 0x4001 1000
+                    @ USART_SR offset = 0x00
+                        @ TC bit = 6
+            LDR R0, =(0x40011000)
+            send_loop:
+                LDR R3, =(0x40011000 + 0x04)
+                LDR R4, =(0x44)
+                STR R4, [R3]
+                wait_loop:
+                    LDR R1,[R0]
+                    ANDS R1, R1, #(1<<6)
+                    BEQ wait_loop
+                B send_loop
+
 
             hang:
                 B hang
