@@ -111,15 +111,15 @@
 
                 @ STCVR (SysTick current value register) address = 0xE000E018
             LDR R0, =(0xE000E014)
-            @ LDR R1, =(0x1481F) @ set reload value to 83999 (Reload value = Cycles - 1)
-            LDR R1, =(0x00FFFFF)
+            LDR R1, =(0x1481F) @ set reload value to 83999 (Reload value = Cycles - 1) for 1ms tick
+            @ LDR R1, =(0x00FFFFFF)
             STR R1, [R0]
 
             @ write to CVR as init setp
             LDR R0, =(0xE000E018)
             LDR R1, =(0x1)
             STR R1, [R0]
-            
+
             LDR R0, =(0xE000E010)
             LDR R1, [R0]
             ORR R1, R1, #(0x5) @ Enable Systick and set clock source to internal
@@ -153,32 +153,35 @@
                 @ 0-15 bits = Set Pin high
                 @ 16-31 bits = Set Pin low (reset)
             LDR R0, =0x40020418
-            loop:
-                LDR R1, =((0x1<<13)|(0x1<<14))  @ set 13th and 14th bit (TO SET PIN HIGH)
-                STR R1, [R0]
-                BL Delay
+            @ loop:
+            @     LDR R1, =((0x1<<13)|(0x1<<14))  @ set 13th and 14th bit (TO SET PIN HIGH)
+            @     STR R1, [R0]
 
-                LDR R1, =((0x1<<(13+16)) | (0x1<<(14+16))) @ set 13+16th and 14+16th bit (TO SET PIN LOW)
-                STR R1,[R0]
-                BL Delay
-                B loop
+            @     LDR R5, =(0x3E8)
+            @     BL Delay
+
+            @     LDR R1, =((0x1<<(13+16)) | (0x1<<(14+16))) @ set 13+16th and 14+16th bit (TO SET PIN LOW)
+            @     STR R1,[R0]
+
+            @     BL Delay
+            @     B loop                                                                                                                                                                                                                                                               
+
+@ JUMP TO USART1 debug Setup---------------------------------------------------------------------------------------------------
+            BL usart_debug_init
 
             hang:
                 B hang
-            
-        @ Delay:
-        @     LDR R2, =0x000FFFFF
-        @     wait:
-        @     SUBS R2, R2, #0x1
-        @     BNE wait
-        @     BX LR
-
+                    
+        @ Input R5 = Delay in ms
         Delay:
+            PUSH {R3, R4, R5}
             LDR R3, =(0xE000E010)
             wait:
             LDR R4, [R3]
             ANDS R4, R4, #(1<<16)
             BEQ wait
+            SUBS R5, R5, #0x1
+            BNE wait
+            POP {R3, R4, R5}
             BX LR
-
 

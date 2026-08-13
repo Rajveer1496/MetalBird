@@ -7,5 +7,5 @@ MEMORY{
 
 SECTIONS{
     .vector : { *(.vector) } > FLASH
-    .text : { *(.text) } > FLASH
+    .text : { *(.text*) } > FLASH
 }
