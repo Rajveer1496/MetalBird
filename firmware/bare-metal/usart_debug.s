@@ -34,6 +34,10 @@
 .cpu cortex-m4      @ STM32F411 has corex M4 CPU
 .thumb              @ tells assembler this is thumb code
 
+.include "debug.i"
+.include "time.i"
+.include "reg.i"
+
 .section .text, "ax"
     .global usart_debug_init
     .type usart_debug_init, %function
@@ -44,7 +48,7 @@
                 @ GPIOB base address = 0x4002 0400
                     @ GPIOB_PUPDR offset = 0x0C
                         @ Pull bits (PB7) = 15:14 (00: No pull-up, pull-down / 01: Pull-up / 10: Pull-down / 11: Reserved)
-            LDR R0, =(0x40020400 + 0x0C)
+            LDR R0, =(GPIOB_BASE + GPIO_PUPDR)
             LDR R1, [R0]
             BIC R1, R1, #(0x3 << 14)    @ clear 15:14 bits
             ORR R1, R1, #(1 << 14)    @ set bit 14
@@ -55,7 +59,7 @@
                     @ GPIO_SPEEDR offset = 0x08
                         @ speed config bits (PB7) = 15:14 (00: Low speed / 01: Medium speed / 10: Fast speed / 11: High speed)
                         @ speed config bits (PB6) = 13:12
-            LDR R0, =(0x40020400 + 0x08)
+            LDR R0, =(GPIOB_BASE + GPIO_OSPEEDR)
             LDR R1, [R0]
             BIC R1, R1, #(0x3 << 12 | 0x3 << 14) @ clear 15:12 bits
             ORR R1, R1, #(0x3 << 12 | 0x3 << 14) @ set 15:12 bits for High speed mode
@@ -67,7 +71,7 @@
                         @ Value for AF7 = 0111
                         @ PB6 bits = 27:24
                         @ PB7 bits = 31:28
-            LDR R0, =(0x40020400 + 0x20)
+            LDR R0, =(GPIOB_BASE + GPIO_AFRL)
             LDR R1, [R0]
             BIC R1, R1, #(0xFF << 24)
             ORR R1, R1, #(0x7 << 24 | 0x7 << 28)
@@ -77,7 +81,7 @@
                 @ RCC base address = 0x4002 3800
                     @ RCC_APB2ENR offset = 0x44
                         @ USART1 clock enable bit = 4
-            LDR R0, =(0x40023800 + 0x44)
+            LDR R0, =(RCC_BASE + RCC_APB2ENR)
             LDR R1, [R0]
             ORR R1, R1, #(1<<4)
             STR R1, [R0]
@@ -87,7 +91,7 @@
                     @ USART1 base address = 0x4001 1000
                         @ USART_CR1 offset = 0x0C
                             @ USART enable bit = 13
-                LDR R0, =(0x40011000 + 0x0c)
+                LDR R0, =(USART1_BASE + USART_CR1)
                 LDR R1, [R0]
                 ORR R1, R1, #(1<<13)
                 STR R1, [R0]
@@ -96,7 +100,7 @@
                     @ USART1 base address = 0x4001 1000
                         @ USART_CR1 offset = 0x0C
                             @ Word length bit = 12 (0: 8 Data bits / 1: 9 Data bits)
-                LDR R0, =(0x40011000 + 0x0C)
+                LDR R0, =(USART1_BASE + USART_CR1)
                 LDR R1, [R0]
                 BIC R1, R1, #(1<<12) @ set word length to 8 bits
                 STR R1,[R0]
@@ -105,7 +109,7 @@
                     @ USART1 base address = 0x4001 1000
                         @ USART_CR2 offset = 0x10
                             @ stop bits number bits = 13:12 (00: 1 Stop bit / 01: 0.5 Stop bit / 10: 2 Stop bits / 11: 1.5 Stop bit)
-                LDR R0, =(0x40011000 + 0x10)
+                LDR R0, =(USART1_BASE + USART_CR2)
                 LDR R1, [R0]
                 BIC R1, R1, #(0x3 << 12)
                 STR R1, [R0]
@@ -116,7 +120,7 @@
                         @ USART_BRR offset = 0x08
                             @ Mantissa bits = 15:4
                             @ Fraction bits = 3:0
-                LDR R0, =(0x40011000 + 0x08)
+                LDR R0, =(USART1_BASE + USART_BRR)
                 LDR R1, [R0]
                 LDR R2, =(0xFFFF)
                 BIC R1, R2
@@ -129,7 +133,7 @@
                     @ USART1 base address = 0x4001 1000
                         @ USART_CR1 offset = 0x0C
                             @ OVER8 (oversampling) bit = 15 (0: oversampling by 16 / 1: oversampling by 8)
-                LDR R0, =(0x40011000 + 0x0C)
+                LDR R0, =(USART1_BASE + USART_CR1)
                 LDR R1, [R0]
                 BIC R1, R1, #(1<<15)
                 STR R1, [R0]
@@ -139,7 +143,7 @@
                     @ GPIOB_MODER offset = 0x00
                         @ MODER PINS PB6 = 13:12 (00: Input (reset state) / 01: General purpose output mode / 10: Alternate function mode / 11: Analog mode)
                         @ MODER PINS PB7 = 15:14
-            LDR R0, =(0x40020400)
+            LDR R0, =(GPIOB_BASE + GPIO_MODER)
             LDR R1, [R0]
             BIC R1, R1, #(0xF << 12)
             ORR R1, R1, #(0x2 << 12 | 0x2 << 14)
@@ -149,7 +153,7 @@
                 @ USART1 base address = 0x4001 1000
                         @ USART_CR1 offset = 0x0C
                             @ Transmitter enable bit = 3
-            LDR R0, =(0x40011000 + 0x0C)
+            LDR R0, =(USART1_BASE + USART_CR1)
             LDR R1, [R0]
             ORR R1, R1, #(1<<3)
             STR R1, [R0]
@@ -158,7 +162,7 @@
                 @ USART1 base address = 0x4001 1000
                         @ USART_CR1 offset = 0x0C
                             @ Reciver enable bit = 2
-            LDR R0, =(0x40011000 + 0x0C)
+            LDR R0, =(USART1_BASE + USART_CR1)
             LDR R1, [R0]
             ORR R1, R1, #(1<<2)
             STR R1, [R0]
@@ -176,22 +180,52 @@
                 RDR. In other words, data has been received and can be read (as well as its
                 associated error flags)
             */
+            @ msg_usart_init:
+            @     .string "USART INIT COMPLETE\r\n"
+            @     .balign 4
 
-            @ TEMPPPPP SEND DATA VIA USART
-                @ USART1 base address = 0x4001 1000
-                    @ USART_SR offset = 0x00
-                        @ TC bit = 6
-            LDR R0, =(0x40011000)
-            send_loop:
-                LDR R3, =(0x40011000 + 0x04)
-                LDR R4, =(0x44)
-                STR R4, [R3]
-                wait_loop:
-                    LDR R1,[R0]
-                    ANDS R1, R1, #(1<<6)
-                    BEQ wait_loop
-                B send_loop
+            @ LDR R5, =msg_usart_init
+            @ BL usart1_str_send
 
+            USART_SEND " USART INIT COMPLETE\r\n"
+            SYSTICK_SLEEP 1000
+            USART_SEND "WOW\r\n"
 
             hang:
                 B hang
+
+    .global usart1_str_send
+    .type usart1_str_send, %function
+    .thumb_func
+        usart1_str_send:
+            @ R5 = msg address
+            PUSH {R0, R1, R2, R3, R4, R6}
+
+            LDR R1, =(USART1_BASE + USART_SR)
+            LDR R2, =(USART1_BASE + USART_DR)
+            LDR R4, =(0xFFFFFFF)
+
+            usart_send_loop:
+                SUBS R4, R4, #1 @ infinite loop prot
+                BEQ done
+                
+                LDRB R0, [R5], #1
+                CMP R0, #0
+                BEQ done
+
+                @ keep Reserved bits preserved in USART_DR
+                LDR R3, [R2]
+                BIC R3, #(0xFF) @ clear 7:0 bits
+                ORR R3, R0
+                STR R3, [R2]
+
+                usart_wait_loop:
+                    LDR R3,[R1]
+                    ANDS R3, R3, #(1<<6)
+                    BEQ usart_wait_loop
+
+                B usart_send_loop
+                
+            done:
+                POP {R0, R1, R2, R3, R4, R6}
+                BX LR

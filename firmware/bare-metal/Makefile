@@ -6,8 +6,11 @@ all : $(PROGRAM_BIN)
 $(PROGRAM_BIN) : program.elf
 	arm-none-eabi-objcopy -O binary $< $@
 
-program.elf : vector.o usart_debug.o
+program.elf : vector.o usart_debug.o I2C.o
 	arm-none-eabi-ld -T linker.ld vector.o usart_debug.o -o $@
+
+I2C.o : I2C.s
+	arm-none-eabi-as -mcpu=cortex-m4 -mthumb $< -o $@
 
 usart_debug.o : usart_debug.s
 	arm-none-eabi-as -mcpu=cortex-m4 -mthumb $< -o $@

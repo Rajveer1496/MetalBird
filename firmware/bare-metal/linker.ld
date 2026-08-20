@@ -8,4 +8,5 @@ MEMORY{
 SECTIONS{
     .vector : { *(.vector) } > FLASH
     .text : { *(.text*) } > FLASH
+    .rodata : { *(.rodata*) } > FLASH
 }

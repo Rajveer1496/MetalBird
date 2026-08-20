@@ -1,0 +1,41 @@
+@ FLASH INTERFACE REGISTER
+.equiv FLASH_INF_BASE, 0x40023C00
+.equiv FLASH_ACR, 0x00
+
+@ GPIO
+.equiv GPIOB_BASE, 0x40020400
+.equiv GPIO_PUPDR, 0x0C
+.equiv GPIO_OSPEEDR, 0x08
+.equiv GPIO_AFRL, 0x20
+.equiv GPIO_MODER, 0x00
+.equiv GPIO_BSRR, 0x18
+.equiv GPIO_AFRH, 0x24
+
+@ RCC
+.equiv RCC_BASE, 0x40023800
+.equiv RCC_CR, 0x0
+.equiv RCC_PLLCFGR, 0x04
+.equiv RCC_AHB1ENR, 0x30
+.equiv RCC_APB2ENR, 0x44
+.equiv RCC_CFGR, 0x08
+
+@ USART
+.equiv USART1_BASE, 0x40011000
+.equiv USART_CR1, 0x0C
+.equiv USART_CR2, 0x10
+.equiv USART_BRR, 0x08
+.equiv USART_SR, 0x00
+.equiv USART_DR, 0x04
+
+@ I2C
+.equiv I2C2_BASE, 0x40005800
+.equiv I2C_CR2, 0x04
+.equiv I2C_CCR, 0x1C
+.equiv I2C_TRISE, 0x20
+.equiv I2C_CR1, 0x00
+.equiv I2C_DR, 0x10
+
+@ Cortex-M
+.equiv SYST_CSR, 0xE000E010
+.equiv SYST_RVR, 0xE000E014
+.equiv SYST_CVR, 0xE000E018
