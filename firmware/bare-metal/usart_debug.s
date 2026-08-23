@@ -191,8 +191,7 @@
             SYSTICK_SLEEP 1000
             USART_SEND "WOW\r\n"
 
-            hang:
-                B hang
+            BX LR
 
     .global usart1_str_send
     .type usart1_str_send, %function

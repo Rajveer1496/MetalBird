@@ -149,16 +149,61 @@ Controller receiver:
             STR R1, [R0]
 
             @ Program the Peripheral clock frequency in I2C_CR2 register in order to generate correct timings.
+            @ NOTE: It is to tell peripheral what our APB1 frequency is
                 @ I2C2 uses -> APB1 uses -> PCLK1 (42 MHz in our case)
-                @ Peripheral clock frequency bits = 5:0 (0b000010: 2 MHz ... 0b101000: 40 MHz ... 0b110010: 50 MHz)
+                @ Peripheral clock frequency bits = 5:0 (0b000010: 2 MHz ... 0b110010: 50 MHz)
             LDR R0, =(I2C2_BASE + I2C_CR2)
             LDR R1, [R0]
             BIC R1, R1, #(0x1F)
-            ORR R1, R1, #(0x28)
+            ORR R1, R1, #(0x2A)
             STR R1, [R0]
 
             @ Configure the clock control registers (I2C_CCR)
-                /* TO DO--------------------------------------------------------------------------------- */
+                @ FM / SM mode bit = 15 (0: Sm mode, 1: Fm mode)
+                @ Duty bit = 14 (0: Fm mode tlow/thigh = 2 / 1: Fm mode tlow/thigh = 16/9)
+                @ CCR bits = 11:0
+                @ For 400 KHz FM mode : Duty=0 , CCR=0x23
+            LDR R0, =(I2C2_BASE + I2C_CCR)
+            LDR R1, [R0]
+            LDR R2, =(1<<14 | 0xFFF)
+            BIC R1, R2
+            LDR R2, =(1<<15 | 0x23)
+            ORR R1, R2
+            STR R1, [R0]
+
+            @ Configure the rise time register (I2C_TRISE)
+                @ TRISE = (max rise time / T_PCLK1) + 1 , Take integr part to respect t_HIGH
+                    @ Fm max SCL rise time (I²C spec) = 300 ns
+                @ TRISE bits= 5:0 (at Pclk1=42 MHz and I2C speed at 400 KHz FM, TRISE=0xD)
+            LDR R0, =(I2C2_BASE + I2C_TRISE)
+            LDR R1, [R0]
+            BIC R1, #(0x3F)
+            ORR R1, #(0xD)
+            STR R1, [R0]
+
+            @ Program the I2C_CR1 register to enable the peripheral
+                @ Peripheral enable bit = 0 (0: Peripheral disable, 1: Peripheral enable)
+            LDR R0, =(I2C2_BASE + I2C_CR1)
+            LDR R1, [R0]
+            ORR R1, #(0x1)
+            STR R1, [R0]
+
+            BX LR
+
+
+            @ TODO: Function to talk to I2C device with given address
+    .global i2c_send
+    .type i2c_send, %function
+    .thumb_func
+        i2c_send:
+            @
+
+
+
+
+
+            
+            BX LR
 
 
 
