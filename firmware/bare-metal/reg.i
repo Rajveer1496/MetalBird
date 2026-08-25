@@ -34,6 +34,7 @@
 .equiv I2C_TRISE, 0x20
 .equiv I2C_CR1, 0x00
 .equiv I2C_DR, 0x10
+.equiv I2C_SR1, 0x14
 
 @ Cortex-M
 .equiv SYST_CSR, 0xE000E010
