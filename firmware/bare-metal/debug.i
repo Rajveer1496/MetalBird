@@ -4,8 +4,8 @@
         .string "\string"
         .balign 4
     .previous
-    PUSH {R0, R5}
+    PUSH {R5, LR}
     LDR R5, =msgx_usart\@
     BL usart1_str_send
-    POP {R0, R5}
+    POP {R5, LR}
 .endm

@@ -4,6 +4,8 @@
 
 .include "time.i"
 .include "reg.i"
+.include "debug.i"
+.include "I2C.i"
 
 .section .vector, "a"
     .word 0x20020000        @ SP value
@@ -167,8 +169,14 @@
             @     BL systick_delay
             @     B loop                                                                                                                                                                                                                                                               
 
-            SYSTICK_SLEEP 1000
             BL usart_debug_init
+
+            USART_SEND "Before I2C init\r\n"
+            BL i2c_init
+
+            @ TEMPPPPPPPPPPPPPPPPPPPPPP TESTING-----------
+            MPU6050_RECEIVE 0x20010000 1 0x41 @ TEMP_OUT_H
+            MPU6050_RECEIVE 0x20010001 1 0x42 @ TEMP_OUT_L
 
             hang:
                 B hang

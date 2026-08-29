@@ -167,6 +167,11 @@
             ORR R1, R1, #(1<<2)
             STR R1, [R0]
 
+            USART_SEND " \r\n"
+            USART_SEND "USART INIT COMPLETE\r\n"
+
+            BX LR
+
             @ TO SEND DATA VIA USART : Write to USART_DR (TDR)
             /* NOTE: After writing the last data into the USART_DR register, wait until TC=1. This indicates
                 that the transmission of the last frame is complete. This is required for instance when
@@ -180,18 +185,6 @@
                 RDR. In other words, data has been received and can be read (as well as its
                 associated error flags)
             */
-            @ msg_usart_init:
-            @     .string "USART INIT COMPLETE\r\n"
-            @     .balign 4
-
-            @ LDR R5, =msg_usart_init
-            @ BL usart1_str_send
-
-            USART_SEND " USART INIT COMPLETE\r\n"
-            SYSTICK_SLEEP 1000
-            USART_SEND "WOW\r\n"
-
-            BX LR
 
     .global usart1_str_send
     .type usart1_str_send, %function

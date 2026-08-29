@@ -17,6 +17,7 @@
 .equiv RCC_PLLCFGR, 0x04
 .equiv RCC_AHB1ENR, 0x30
 .equiv RCC_APB2ENR, 0x44
+.equiv RCC_APB1ENR, 0x40
 .equiv RCC_CFGR, 0x08
 
 @ USART
