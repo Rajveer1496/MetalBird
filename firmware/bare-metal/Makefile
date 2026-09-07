@@ -26,7 +26,7 @@ info:
 	st-info --probe
 
 clean:
-	rm -rf *.bin *.elf *.o
+	rm -rfv *.bin *.elf *.o
 
 debug:
 	stty -F /dev/ttyUSB0 115200 raw -echo clocal -crtscts

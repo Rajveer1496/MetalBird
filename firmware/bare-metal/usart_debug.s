@@ -168,6 +168,7 @@
             STR R1, [R0]
 
             USART_SEND " \r\n"
+            USART_SEND "\r\n"
             USART_SEND "USART INIT COMPLETE\r\n"
 
             BX LR
@@ -186,18 +187,19 @@
                 associated error flags)
             */
 
+    @ R5 = msg address
     .global usart1_str_send
     .type usart1_str_send, %function
     .thumb_func
         usart1_str_send:
-            @ R5 = msg address
+
             PUSH {R0, R1, R2, R3, R4, R6}
 
             LDR R1, =(USART1_BASE + USART_SR)
             LDR R2, =(USART1_BASE + USART_DR)
             LDR R4, =(0xFFFFFFF)
 
-            usart_send_loop:
+            usart_str_send_loop:
                 SUBS R4, R4, #1 @ infinite loop prot
                 BEQ done
                 
@@ -211,13 +213,62 @@
                 ORR R3, R0
                 STR R3, [R2]
 
-                usart_wait_loop:
+                usart_str_wait_loop:
                     LDR R3,[R1]
                     ANDS R3, R3, #(1<<6)
-                    BEQ usart_wait_loop
+                    BEQ usart_str_wait_loop
 
-                B usart_send_loop
+                B usart_str_send_loop
                 
             done:
+                POP {R0, R1, R2, R3, R4, R6}
+                BX LR
+
+    @ R5 = number to send
+    .global usart1_num_send
+    .type usart1_num_send, %function
+    .thumb_func
+        usart1_num_send:
+
+            PUSH {R0, R1, R2, R3, R4, R6}
+
+            LDR R1, =(USART1_BASE + USART_SR)
+            LDR R2, =(USART1_BASE + USART_DR)
+            MOV R6, #(0x8)
+
+            usart1_num_send_main:
+                CMP R6, (0x0)
+                BLE usart1_num_done
+
+                SUBS R6, R6, #(0x1)
+
+                ROR R5, R5, #(0x20 - 0x4)   @ little endian -> big endian
+                MOV R0, R5 @ Data
+                LDR R4, =(0xFFFFFFF << 4)
+                BIC R0, R4
+
+                CMP R0, #(0x9)
+                BGE usart1_num_greater_nine
+                ADD R0, #(0x30)
+                B usart1_num_send_char
+
+                usart1_num_greater_nine:
+                    ADD R0, #(0x37)
+
+                usart1_num_send_char:
+                    @ keep Reserved bits preserved in USART_DR
+                    LDR R3, [R2]
+                    BIC R3, #(0xFF) @ clear 7:0 bits
+                    ORR R3, R0
+                    STR R3, [R2]
+
+                    usart_num_wait_loop:
+                        LDR R3,[R1]
+                        ANDS R3, R3, #(1<<6)
+                        BEQ usart_num_wait_loop
+
+            B usart1_num_send_main
+
+            usart1_num_done:
                 POP {R0, R1, R2, R3, R4, R6}
                 BX LR

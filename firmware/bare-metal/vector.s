@@ -171,12 +171,42 @@
 
             BL usart_debug_init
 
+            USART_SEND "NUMBER TESTING\r\n"
+
+            LDR R0, =(0xDEADBEEF)
+            USART_SEND_NUM R0
+            USART_SEND "\r\n"
+
             USART_SEND "Before I2C init\r\n"
             BL i2c_init
+
+            @ -------------------------------------------------------------------------------
+            
+            LDR R0, =(0x20010002)
+            LDR R1, =(0x0)
+            STR R1, [R0]
+
+            USART_SEND "MPU6050 Temp before: "
+            LDR R5, =(0x20010000)
+            BL usart1_str_send
+            USART_SEND "\r\n"
+            USART_SEND "\r\n"
 
             @ TEMPPPPPPPPPPPPPPPPPPPPPP TESTING-----------
             MPU6050_RECEIVE 0x20010000 1 0x41 @ TEMP_OUT_H
             MPU6050_RECEIVE 0x20010001 1 0x42 @ TEMP_OUT_L
+            LDR R0, =(0x20010002)
+            LDR R1, =(0x0)
+            STR R1, [R0]
+
+            USART_SEND "MPU6050 Temp After: "
+            LDR R5, =(0x20010000)
+            BL usart1_str_send
+
+            @ ------------------------------------------------------------------------------
+
+            USART_SEND "\r\n"
+            USART_SEND "\r\n"
 
             hang:
                 B hang
