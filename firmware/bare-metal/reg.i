@@ -10,6 +10,8 @@
 .equiv GPIO_MODER, 0x00
 .equiv GPIO_BSRR, 0x18
 .equiv GPIO_AFRH, 0x24
+.equiv GPIO_OTYPER, 0x04
+
 
 @ RCC
 .equiv RCC_BASE, 0x40023800

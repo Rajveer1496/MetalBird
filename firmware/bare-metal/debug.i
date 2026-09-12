@@ -19,13 +19,13 @@
 .endm
 
 .macro UDEBUG
-    USART_SEND "DEBUG \@"
+    USART_SEND "DEBUG \@ \r\n"
 .endm
 
-.macro REG_CHECK reg:req bits:req config:req
+.macro REG_CHECK reg:req bits:req config:req debug_msg
     SYSTICK_SLEEP 0x64   @ 100 ms delay to let hardware settle
 
-    PUSH {R0-R5}
+    PUSH {R0-R5,LR}
     LDR R0, =(\reg)
     LDR R1, [R0]
 
@@ -47,13 +47,22 @@
     USART_SEND " Actual= "
     USART_SEND_NUM R4
     USART_SEND "\r\n"
+    B done\@
 
     @ Actual Value
 
     reg_check_matched\@:
-    USART_SEND "REG CHECK Matched for \reg \r\n"
+    USART_SEND "REG CHECK Matched for \reg"
 
-    POP {R0-R3}
+    done\@:
+
+    .ifnb debug_msg     @ if not blank
+        USART_SEND " \debug_msg"
+    .endif
+
+    USART_SEND "\r\n"
+
+    POP {R0-R5,LR}
 .endm
 
 

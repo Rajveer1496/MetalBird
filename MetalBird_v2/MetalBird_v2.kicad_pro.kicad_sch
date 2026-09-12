@@ -13051,7 +13051,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7 K"
+		(property "Value" "2.2 K"
 			(at 105.41 93.98 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13132,7 +13132,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7 K"
+		(property "Value" "2.2 K"
 			(at 105.41 90.17 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15085,7 +15085,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7 K"
+		(property "Value" "2.2 K"
 			(at 109.22 97.79 90)
 			(show_name no)
 			(do_not_autoplace no)
