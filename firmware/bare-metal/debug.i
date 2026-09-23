@@ -18,53 +18,34 @@
     POP {R5, LR}
 .endm
 
-.macro UDEBUG
-    USART_SEND "DEBUG \@ \r\n"
+.macro UDEBUG msg
+    .ifb \msg
+        USART_SEND "[DEBUG] \@ \r\n"
+    .else 
+        USART_SEND "[DEBUG] \msg \r\n"
+    .endif
 .endm
 
 .macro REG_CHECK reg:req bits:req config:req debug_msg
-    SYSTICK_SLEEP 0x64   @ 100 ms delay to let hardware settle
-
-    PUSH {R0-R5,LR}
+    PUSH {R0,R4,R5,LR}
     LDR R0, =(\reg)
-    LDR R1, [R0]
-
-    LDR R2, =(0xFFFFFFFF)
-    LDR R3, =(\bits)
-    BIC R2, R3
-    BIC R1, R2  @ Keep only bits that matters
-    MOV R4, R1 @ save actual value
-
-    LDR R3, =(\config)
-    EOR R1, R3 @ XOR -> this should set R1=0 if it was configured correctly with config
-
-    CMP R1, #(0x0)
-    BEQ reg_check_matched\@
-
+    LDR R4, =(\bits)
+    LDR R5, =(\config)
+    BL reg_val_check
+    CMP R0, #(0x0)
+    BEQ done_\@
     USART_SEND "REG CHECK does not match for \reg : Expected= "
     LDR R5, =(\config)
     USART_SEND_NUM R5
     USART_SEND " Actual= "
-    USART_SEND_NUM R4
-    USART_SEND "\r\n"
-    B done\@
-
-    @ Actual Value
-
-    reg_check_matched\@:
-    USART_SEND "REG CHECK Matched for \reg"
-
-    done\@:
-
+    USART_SEND_NUM R0
+    done_\@:
     .ifnb debug_msg     @ if not blank
         USART_SEND " \debug_msg"
     .endif
-
     USART_SEND "\r\n"
-
-    POP {R0-R5,LR}
+    POP {R0,R4,R5,LR}
 .endm
-
 
 
 
