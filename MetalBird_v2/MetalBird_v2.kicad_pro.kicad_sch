@@ -8037,6 +8037,30 @@
 			)
 		)
 	)
+	(global_label "BOOT0"
+		(shape input)
+		(at 128.27 57.15 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8fb10716-ef0e-4712-af90-1c09652f5c86")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 128.27 48.0567 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
 	(global_label "USART1_RX"
 		(shape input)
 		(at 133.35 97.79 180)

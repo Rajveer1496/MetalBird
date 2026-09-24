@@ -21,6 +21,7 @@ vector.o : vector.s
 run: $(PROGRAM_BIN)
 	st-flash write $(PROGRAM_BIN) 0x08000000
 	rm -rf *.bin *.elf *.o
+	st-flash reset
 
 info:
 	st-info --probe
@@ -29,5 +30,7 @@ clean:
 	rm -rfv *.bin *.elf *.o
 
 debug:
-	stty -F /dev/ttyUSB0 115200 raw -echo clocal -crtscts
-	picocom --noinit /dev/ttyUSB0
+	kgx -- bash -c "stty -F /dev/ttyUSB0 115200 raw -echo clocal -crtscts && picocom --noinit /dev/ttyUSB0; exec bash" &
+
+reset:
+	st-flash reset
