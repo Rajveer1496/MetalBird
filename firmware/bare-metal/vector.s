@@ -171,9 +171,7 @@
 
             BL usart_debug_init
 
-            USART_SEND "\x1b[2J"    @ Clear screen
-            USART_SEND "\x1b[H"     @ Reset cursor
-            USART_SEND "\x1b[3J"    @ Clear Scroll
+            CLEAR_USART
 
             USART_SEND "NUMBER TESTING\r\n"
 
@@ -190,6 +188,31 @@
             MPU6050_RECEIVE 1 0x75
             USART_SEND "WHO AM I: "
             USART_SEND_NUM R0
+            USART_SEND "\r\n"
+
+            MOV R0, #(0xA5)
+            MPU6050_SEND R0 1 0x19
+            SYSTICK_SLEEP 1000
+
+            MPU6050_RECEIVE 1 0x19
+            USART_SEND "VALUE CHECK: "
+            USART_SEND_NUM R0
+            USART_SEND "\r\n"
+
+            BL mpu6050_init
+            
+
+            ACCEL_LOOP:
+                SYSTICK_SLEEP 1000
+                CLEAR_USART
+                MPU6050_RECEIVE 1 0x3F
+                MOV R1, R0
+                LSL R1, R1, #(0x8)
+                MPU6050_RECEIVE 1 0x40
+                ORR R1, R0
+                USART_SEND "ACCEL Z: "
+                USART_SEND_NUM R1
+            B ACCEL_LOOP
 
             USART_SEND "\r\n"
             USART_SEND "\r\n"

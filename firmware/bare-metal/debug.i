@@ -47,7 +47,10 @@
     POP {R0,R4,R5,LR}
 .endm
 
-
-
+.macro CLEAR_USART
+    USART_SEND "\x1b[2J"    @ Clear screen
+    USART_SEND "\x1b[H"     @ Reset cursor
+    USART_SEND "\x1b[3J"    @ Clear Scroll
+.endm
 
 

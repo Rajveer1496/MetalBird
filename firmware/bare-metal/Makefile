@@ -6,8 +6,11 @@ all : $(PROGRAM_BIN)
 $(PROGRAM_BIN) : program.elf
 	arm-none-eabi-objcopy -O binary $< $@
 
-program.elf : vector.o usart_debug.o I2C.o
-	arm-none-eabi-ld -T linker.ld vector.o usart_debug.o I2C.o -o $@
+program.elf : vector.o usart_debug.o I2C.o mpu6050.o
+	arm-none-eabi-ld -T linker.ld vector.o usart_debug.o I2C.o mpu6050.o -o $@
+
+mpu6050.o : mpu6050.s
+	arm-none-eabi-as -mcpu=cortex-m4 -mthumb $< -o $@
 
 I2C.o : I2C.s
 	arm-none-eabi-as -mcpu=cortex-m4 -mthumb $< -o $@
@@ -21,6 +24,7 @@ vector.o : vector.s
 run: $(PROGRAM_BIN)
 	st-flash write $(PROGRAM_BIN) 0x08000000
 	rm -rf *.bin *.elf *.o
+	sleep 1
 	st-flash reset
 
 info:
